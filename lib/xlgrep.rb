@@ -1,5 +1,25 @@
 require "xlgrep/version"
 
 module Xlgrep
-  # Your code goes here...
+
+  autoload :Context    , "xlgrep/context"
+  autoload :InvalidJson, "xlgrep/invalid_json"
+
+  class << self
+    def method_missing(name, *args, &block)
+      mod = name.to_s.split(/_/).map(&:capitalize).join
+      if const_defined?(mod)
+        run([const_get(mod)], *args, &block)
+      else
+        super
+      end
+    end
+
+    def run(predicates, files)
+      Context.new(predicates).execute(files)
+    end
+  end
+
+
+
 end
