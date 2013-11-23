@@ -12,6 +12,13 @@ module Xlgrep
 
     def book_for(file)
       Roo::Spreadsheet.open(file)
+    rescue => e
+      if e.is_a?(NoMethodError) && (e.message =~ /for nil:NilClass/)
+        $stderr.puts("SKIP #{file} unsupported file")
+      else
+        $stderr.puts("SKIP #{file} [#{e.class}] #{e.message}")
+      end
+      return nil
     end
 
     BASE_CHAR_ORDER = 'A'.ord
@@ -19,6 +26,7 @@ module Xlgrep
     def execute(files)
       files.each do |f|
         book = book_for(f)
+        next unless book
         book.sheets.each do |sheet|
           print_status("loading #{f} #{sheet}")
 
