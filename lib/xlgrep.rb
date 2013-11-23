@@ -5,6 +5,7 @@ module Xlgrep
   autoload :Context    , "xlgrep/context"
 
   autoload :InvalidJson, "xlgrep/invalid_json"
+  autoload :Regexp     , "xlgrep/regexp"
 
   autoload :ResultBuffer   , "xlgrep/result_buffer"
   autoload :SimpleFormatter, "xlgrep/simple_formatter"
