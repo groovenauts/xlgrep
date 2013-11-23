@@ -3,7 +3,10 @@ require "xlgrep/version"
 module Xlgrep
 
   autoload :Context    , "xlgrep/context"
+
   autoload :InvalidJson, "xlgrep/invalid_json"
+
+  autoload :ResultBuffer   , "xlgrep/result_buffer"
   autoload :SimpleFormatter, "xlgrep/simple_formatter"
 
   class << self
@@ -16,8 +19,8 @@ module Xlgrep
       end
     end
 
-    def run(predicates, files)
-      Context.new(predicates).execute(files)
+    def run(predicates, files, formatter = nil)
+      Context.new(predicates, formatter).execute(files)
     end
   end
 
