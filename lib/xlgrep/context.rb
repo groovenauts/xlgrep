@@ -7,16 +7,7 @@ module Xlgrep
     end
 
     def book_for(file)
-      klass, options =
-        case ext = File.extname(file)
-        when ".ods"  then Roo::OpenOffice
-        when ".xls"  then Roo::Excel
-        when ".xlsx" then Roo::Excelx
-        when ".csv"  then Roo::CSV
-        when ".tsv"  then [Roo::CSV, {csv_options: {col_sep: "\t"}}]
-        else raise ArgumentError, "Unsupported file extension: #{ext.inspect}"
-        end
-      klass.new(file, options)
+      Roo::Spreadsheet.open(file)
     end
 
     BASE_CHAR_ORDER = 'A'.ord
