@@ -5,9 +5,9 @@ module Xlgrep
     class << self
 
       def match(str)
-        if str =~ /\A\{.*\}\Z|\A\[.*\]\Z/
+        if str =~ /\A[\s\n\r]*(?:\{.*\}|\[.*\])[\s\n\r]*\Z/
           begin
-            JSON.parse(str)
+            JSON.parse(str.strip)
           rescue JSON::ParserError => e
             yield(e.message)
           end
