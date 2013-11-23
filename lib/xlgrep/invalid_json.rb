@@ -1,3 +1,5 @@
+require 'xlgrep'
+
 require 'json'
 
 module Xlgrep

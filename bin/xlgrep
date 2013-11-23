@@ -2,16 +2,4 @@
 
 require 'xlgrep'
 
-r = Xlgrep.invalid_json(ARGV)
-
-require 'shellwords'
-include Shellwords
-
-r.each do |obj|
-  puts "-" * 80
-  puts "file    : " << obj[:file]
-  puts "sheet   : " << obj[:sheet]
-  puts "position: " << obj[:x] << obj[:y].to_s
-  puts "cell    : " << obj[:data]
-  puts "msg     : " << obj[:msg]
-end
+Xlgrep.invalid_json(ARGV)

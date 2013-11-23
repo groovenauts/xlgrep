@@ -4,6 +4,7 @@ module Xlgrep
 
   autoload :Context    , "xlgrep/context"
   autoload :InvalidJson, "xlgrep/invalid_json"
+  autoload :SimpleFormatter, "xlgrep/simple_formatter"
 
   class << self
     def method_missing(name, *args, &block)
@@ -19,7 +20,5 @@ module Xlgrep
       Context.new(predicates).execute(files)
     end
   end
-
-
 
 end
