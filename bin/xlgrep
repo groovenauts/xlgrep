@@ -2,4 +2,42 @@
 
 require 'xlgrep'
 
-Xlgrep.invalid_json(ARGV)
+require 'trollop'
+opts = Trollop::options do
+  version "xlgrep-#{Xlgrep::VERSION}"
+
+  banner <<-EOS
+xlgrep scans your spreadsheet files for EXCEL, OpenOffice, Google spreadsheets, Excelx, LibreOffice and CSV
+
+Usage:
+       xlgrep <keyword> <filenames>+
+   OR  xlgrep [options] <filenames>+
+
+where [options] are:
+EOS
+
+  opt :regexp, "use ruby Regexp", type: :string
+  opt :json  , "use json validator"
+end
+
+predicates = []
+opts.each do |key, val|
+  pred =
+    case key
+    when :json   then Xlgrep::InvalidJson if val
+    when :regexp then Xlgrep::Regexp.new(val) if val
+    end
+  next unless pred
+  predicates << pred
+end
+
+if predicates.empty?
+  if ARGV.first && !File.exist?(ARGV.first)
+    predicates << Xlgrep::Regexp.new(ARGV.shift)
+  else
+    puts "no option given, see `xlgrep --help`"
+    exit(1)
+  end
+end
+
+Xlgrep.run(predicates, ARGV)
