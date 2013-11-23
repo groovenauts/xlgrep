@@ -18,7 +18,21 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+$ xlgrep --help
+xlgrep scans your spreadsheet files for EXCEL, OpenOffice, Google spreadsheets, Excelx, LibreOffice and CSV
+
+Usage:
+       xlgrep <keyword> <filenames>+
+   OR  xlgrep [options] <filenames>+
+
+where [options] are:
+  --regexp, -r <s>:   use ruby Regexp
+        --json, -j:   use json validator
+     --version, -v:   Print version and exit
+        --help, -h:   Show this message
+```
+
 
 ## Contributing
 
